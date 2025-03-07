@@ -14,8 +14,8 @@ If you are developing a production application, we recommend using TypeScript an
 
 ## Project UI Screenshot
 
-![Home Screenshot](assets/home.png)
-![Register Screenshot](assets/register.png)
-![Dashboard Screenshot](assets/dashboard.png)
-![TaskList Screenshot](assets/tasks_list.png)
-![Login Screenshot](assets/login.png)
+![Home Screenshot](frontend/assets/home.png)
+![Register Screenshot](frontend/assets/register.png)
+![Dashboard Screenshot](frontend/assets/dashboard.png)
+![TaskList Screenshot](frontend/assets/tasks_list.png)
+![Login Screenshot](frontend/assets/login.png)
