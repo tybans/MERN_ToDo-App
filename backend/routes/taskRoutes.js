@@ -9,11 +9,14 @@ router.post("/", async (req, res) => {
   const task = new Task({
     userId,
     text,
+    completed: false,
   });
 
   try {
     await task.save();
-    res.status(201).json({ message: "Task created successfully", task });
+    const tasks = await Task.find({ userId }); // Fetch updated task list
+    res.status(201).json({ message: "Task created successfully", tasks });
+
   } catch (error) {
     res.status(400).send(error);
   }
@@ -43,7 +46,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
 
@@ -53,7 +55,6 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-}
-);
- 
+});
+
 module.exports = router;

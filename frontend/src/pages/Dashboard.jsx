@@ -1,44 +1,57 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
 import TaskList from "../components/TaskList";
 import TaskForm from "../components/TaskForm";
+import { AuthContext } from "../context/AuthContext";
 import { saveTasks, loadTasks } from "../utils/localStorage";
 
 const Dashboard = () => {
-    const [tasks, setTasks] = useState([]);
+  const { user } = useContext(AuthContext);
+  const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        setTasks(loadTasks()); // Load tasks on mount
-    }, []);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
-    useEffect(() => {
-        saveTasks(tasks); // Save tasks whenever they change
-    }, [tasks]);
-
-    const addTask = (text) => {
-        const newTask = { id: Date.now(), text, completed: false };
-        setTasks((prevTasks) => [...prevTasks, newTask]); // ✅ Updates immediately
-    };
-
-    const toggleTask = (id) => {
-        setTasks((prevTasks) =>
-            prevTasks.map((task) =>
-                task.id === id ? { ...task, completed: !task.completed } : task
-            )
+    const fetchTasks = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5000/api/tasks/${user.id}`
         );
+        setTasks(data);
+        saveTasks(data); // Save fetched tasks to localStorage
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
     };
+    fetchTasks();
+  }, [user]);
 
-    
-    const deleteTask = (id) => {
-        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-    };
+  const addTask = async (text) => {
+    try {
+      const { data } = await axios.post("http://localhost:5000/api/tasks", {
+        userId: user.id,
+        text,
+      });
+      setTasks(data.tasks);
+      saveTasks(data.tasks); // Save to localStorage
+    } catch (error) {
+      console.error("Error adding task:", error);
+    }
+  };
 
-    return (
-        <div className="max-w-xl mx-auto mt-10">
-            <h2 className="text-2xl font-bold text-center">Task Manager</h2>
-            <TaskForm addTask={addTask} />
-            <TaskList tasks={tasks} toggleTask={toggleTask} deleteTask={deleteTask} />
-        </div>
-    );
+  return (
+    <div className="max-w-xl mx-auto mt-10">
+      <h2 className="text-2xl font-bold text-center">Task Manager</h2>
+      <TaskForm addTask={addTask} />
+      <TaskList tasks={tasks} setTasks={setTasks} />
+    </div>
+  );
 };
 
 export default Dashboard;
