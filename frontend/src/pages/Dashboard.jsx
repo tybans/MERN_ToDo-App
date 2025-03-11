@@ -41,7 +41,7 @@ const Dashboard = () => {
     const fetchTasks = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/tasks/${user.id}`
+          `http://localhost:5000/api/tasks/${user.id}` || url
         );
         //  Making a GET request to fetch tasks for the logged-in user
 
@@ -62,7 +62,7 @@ const Dashboard = () => {
 
   const addTask = async (text) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/api/tasks", {
+      const { data } = await axios.post("http://localhost:5000/api/tasks" || url, {
         userId: user.id,
         text,
       });
