@@ -9,8 +9,6 @@ const TaskList = ({ tasks, setTasks }) => {
   //    - setTasks: Function to update tasks state
 
 
-  const url = "https://mern-todo-app-backend-yeas.onrender.com"
-
   useEffect(() => { 
     // useEffect runs when 'tasks' state changes
     saveTasks(tasks); 
@@ -21,7 +19,7 @@ const TaskList = ({ tasks, setTasks }) => {
   const toggleTask = async (id) => { 
     // Function to toggle task completion status
     try {
-      const { data } = await axios.put(`http://localhost:5000/api/tasks/${id}` || url); 
+      const { data } = await axios.put(`http://localhost:5000/api/tasks/${id}`); 
       // Sending a PUT request to toggle task completion status on the server
 
       setTasks(tasks.map(task => task._id === id ? data : task)); 
@@ -37,7 +35,7 @@ const TaskList = ({ tasks, setTasks }) => {
   const deleteTask = async (id) => { 
     // Function to delete a task
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}` || url); 
+      await axios.delete(`http://localhost:5000/api/tasks/${id}`); 
       // Sending a DELETE request to remove the task from the server
 
       const updatedTasks = tasks.filter(task => task._id !== id); 

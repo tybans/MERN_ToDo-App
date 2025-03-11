@@ -7,11 +7,9 @@ import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
-  const url = "https://mern-todo-app-backend-yeas.onrender.com"
   
   const { setUser } = useContext(AuthContext);
   // Accessing setUser function from AuthContext to store user data after login
-
   const [email, setEmail] = useState("");
   // State variable to store user's email
 
@@ -32,7 +30,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login" || url,
+        "http://localhost:5000/api/users/login",
         { email, password }
         // Sending a POST request to backend API for user authentication
       );

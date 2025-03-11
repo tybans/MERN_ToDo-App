@@ -4,7 +4,6 @@ import axios from "axios";
 
 const Register = () => { 
 
-  const url = "https://mern-todo-app-backend-yeas.onrender.com"
   const [name, setName] = useState(""); // State variable to store user’s name
   const [email, setEmail] = useState(""); //  State variable to store user’s email
   const [password, setPassword] = useState(""); //  State variable to store user’s password
@@ -16,7 +15,7 @@ const Register = () => {
     setError(""); // Clear previous errors
 
     try {
-      await axios.post("http://localhost:5000/api/users/register" || url, { 
+      await axios.post("http://localhost:5000/api/users/register", { 
         // Sending a POST request to backend API for user registration
         name,
         email,

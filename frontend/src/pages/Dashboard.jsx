@@ -18,7 +18,6 @@ import { saveTasks, loadTasks } from "../utils/localStorage";
 
 const Dashboard = () => {
 
-  const url = "https://mern-todo-app-backend-yeas.onrender.com"
   const { user } = useContext(AuthContext);
   //  Accessing user data from AuthContext (checks if user is logged in)
 
@@ -41,7 +40,7 @@ const Dashboard = () => {
     const fetchTasks = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/tasks/${user.id}` || url
+          `http://localhost:5000/api/tasks/${user.id}`
         );
         //  Making a GET request to fetch tasks for the logged-in user
 
@@ -62,7 +61,7 @@ const Dashboard = () => {
 
   const addTask = async (text) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/api/tasks" || url, {
+      const { data } = await axios.post("http://localhost:5000/api/tasks", {
         userId: user.id,
         text,
       });
