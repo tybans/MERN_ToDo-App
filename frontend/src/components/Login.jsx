@@ -32,7 +32,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "http://localhost:5000/api/users/login" || url,
         { email, password }
         // Sending a POST request to backend API for user authentication
       );
