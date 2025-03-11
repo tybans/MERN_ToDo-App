@@ -16,7 +16,7 @@ const Register = () => {
     setError(""); // Clear previous errors
 
     try {
-      await axios.post("http://localhost:5000/api/users/register", { 
+      await axios.post("http://localhost:5000/api/users/register" || url, { 
         // Sending a POST request to backend API for user registration
         name,
         email,
