@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Register = () => { 
 
+  const url = "https://mern-todo-app-backend-yeas.onrender.com"
   const [name, setName] = useState(""); // State variable to store user’s name
   const [email, setEmail] = useState(""); //  State variable to store user’s email
   const [password, setPassword] = useState(""); //  State variable to store user’s password
